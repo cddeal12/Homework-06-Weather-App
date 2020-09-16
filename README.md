@@ -1,2 +1,2 @@
 # Homework-06-Weather-App
-A weather and forecast display app with city search
+This project is a weather and forecast display app that functions on a user's city search. The app is powered by the Openweather api and uses it to call current weather, uv index, and a five-day forecast for the city the user specifies in their search. Additionally, the 

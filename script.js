@@ -33,6 +33,12 @@ searchButton.on("click", function() {
     handleWeather();
 });
 
+// If the user has a last-city variable stored, run the handler with it
+if (localStorage.getItem("last") !== null) {
+    searchInput.val(localStorage.getItem("last"));
+    handleWeather();
+};
+
 
 function handleWeather() {
     if (searchInput.val() !== "") {
@@ -122,6 +128,8 @@ function handleWeather() {
             citiesList.prepend(newCity);
             searchedCities.push(cityCall);
         }
+        // Writes the city to local storage to be run again if the user leaves or refreshes the page
+        localStorage.setItem("last", cityCall);
 
     }
 }
