@@ -2,15 +2,61 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Weather Search</title>
+        <title>Weather App</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     </head>
-    <body>
-        
+    <body style="background-color: slategray; font-family: roboto,sans-serif;">
 
-        
+        <!-- Header Bar -->
+        <header class="bg-dark">
+            <h1 class="text-light text-center">And Now, The Weather</h1>
+        </header>
+
+        <!-- Container holding main page content and setting up rows -->
+        <div class="container" style="max-width: 80%;">
+            <!-- Row holding both main columns -->
+            <div class="row">
+                <!-- Aside which holds the search bar and list of previous searches -->
+                <aside class="col-3 bg-light" style="border: solid grey 1px; border-radius: 10px;">
+                    <h2>Search for a City</h2>
+                    <!-- Search Box -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="search-input">
+                        <button type="button" class="btn btn-primary" id="search-button">Search</button>
+                    </div>
+                    <!-- List of Cities -->
+                    <ul class="list-group" id="cities-list">
+                    </ul>
+                </aside>
+
+
+                <!-- Main element which holds weather information after a search -->
+                <main class="col-9 bg-light" style="border: solid grey 1px; border-radius: 10px; line-height: 300%;">
+                
+                <!-- Main Weather Info -->
+                <section id="main-weather">
+                    <h3 id="todays-forecast">Today's Forecast</h3>
+                    <ul>
+                        <li id="temperature"></li>
+                        <li id="humidity"></li>
+                        <li id="wind-speed"></li>
+                        <li id="uv-index"></li>
+                    </ul>
+                </section>
+
+                <!-- 5-Day Forecast -->
+                <section class="row" id="five-day">
+
+                </section>
+
+                </main>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="script.js"></script>
     </body>
 </html>
