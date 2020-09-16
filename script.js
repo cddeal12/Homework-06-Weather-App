@@ -28,9 +28,13 @@ var year = date.getFullYear();
 date = month + "/" + day + "/" + year;
 
 
-//When search button is pressed call the weather APIs
-searchButton.on("click", function () {
-    console.log("HEwwo");
+//When search button is pressed call the weather handler
+searchButton.on("click", function() {
+    handleWeather();
+});
+
+
+function handleWeather() {
     if (searchInput.val() !== "") {
         cityCall = searchInput.val()
         // Calls the chosen city and writes the MAIN data to the appropriate divs
@@ -38,7 +42,6 @@ searchButton.on("click", function () {
             url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityCall + "&appid=" + apikey + "&units=imperial",
             method: "GET"
         }).then(function(response) {
-            console.log(response);
             weatherHeader.text("Today's Forecast: " + response.name + " (" + date + ")");
             tempWrite.text("Temperature: " + response.main.temp + " Farenheit");
             humidWrite.text("Humidity: " + response.main.humidity + "%");
@@ -49,7 +52,6 @@ searchButton.on("click", function () {
                 url: "http://api.openweathermap.org/data/2.5/uvi?appid=" + apikey + "&lat=" + response.coord.lat + "&lon=" + response.coord.lon,
                 method: "GET"
             }).then(function(response) {
-                console.log(response);
                 uvWrite.text("UV index: ");
                 var uvBadge = $("<span>");
                 uvBadge.text(response.value);
@@ -72,10 +74,13 @@ searchButton.on("click", function () {
             url:"http://api.openweathermap.org/data/2.5/forecast?q=" + cityCall + "&appid=" + apikey + "&units=imperial",
             method: "GET"
         }).then(function(response) {
+
+            fiveDay.empty();
+
             for (i=3, d=1; i<=35; i = i + 8, d++) {
                 var foreDay = day + d;
                 var newForecast = $("<div>");
-                newForecast.addClass("bg-primary mx-4 text-light px-3 py-1");
+                newForecast.addClass("bg-primary mx-4 text-light px-3 py-1 mb-3");
                 newForecast.attr("style", "border-radius: 10px");
 
                 // Adds the new date
@@ -87,7 +92,6 @@ searchButton.on("click", function () {
                 var forecastIcon = $("<img>");
                 forecastIcon.attr("src", "http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
                 newForecast.append(forecastIcon);
-
 
                 // Adds the temperature
                 var tempForecast = $("<p>");
@@ -103,5 +107,21 @@ searchButton.on("click", function () {
                 fiveDay.append(newForecast);
             }
         })
+
+        //Writes the city name to a new button in a list if it is not already there
+        if (searchedCities.indexOf(cityCall) == -1 || searchedCities == []) {
+            var newCity = $("<li>");
+            newCity.addClass("list-group-item");
+            newCity.text(cityCall);
+            // Add a listener so that when a list item is clicked, call the weather handler with its text as the search.val()
+            newCity.on("click", function() {
+                console.log("you clicked a list element")
+                searchInput.val($(this).text());
+                handleWeather();
+            });
+            citiesList.prepend(newCity);
+            searchedCities.push(cityCall);
+        }
+
     }
-});
+}
