@@ -55,7 +55,7 @@ function handleWeather() {
 
             //Performs one more ajax call in this function to get uv data
             $.ajax({
-                url: "http://api.openweathermap.org/data/2.5/uvi?appid=" + apikey + "&lat=" + response.coord.lat + "&lon=" + response.coord.lon,
+                url: "https://api.openweathermap.org/data/2.5/uvi?appid=" + apikey + "&lat=" + response.coord.lat + "&lon=" + response.coord.lon,
                 method: "GET"
             }).then(function(response) {
                 uvWrite.text("UV index: ");
@@ -77,7 +77,7 @@ function handleWeather() {
 
         // Calls the city and writes its 5-Day forecast data to divs
         $.ajax({
-            url:"http://api.openweathermap.org/data/2.5/forecast?q=" + cityCall + "&appid=" + apikey + "&units=imperial",
+            url:"https://api.openweathermap.org/data/2.5/forecast?q=" + cityCall + "&appid=" + apikey + "&units=imperial",
             method: "GET"
         }).then(function(response) {
 
@@ -96,7 +96,7 @@ function handleWeather() {
 
                 // Adds a weather Icon
                 var forecastIcon = $("<img>");
-                forecastIcon.attr("src", "http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
+                forecastIcon.attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
                 newForecast.append(forecastIcon);
 
                 // Adds the temperature
