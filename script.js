@@ -20,11 +20,12 @@ var queryUrl = "";
 var apikey = "995176d5da40c8cd5255df4136c49185";
 var cityCall = "";
 
-// For Writing the date
+// For Writing the dates
 var date = new Date();
 var month = date.getMonth()+1;
 var day = date.getDate();
-date = month + "/" + day + "/" + date.getFullYear();
+var year = date.getFullYear();
+date = month + "/" + day + "/" + year;
 
 
 //When search button is pressed call the weather APIs
@@ -68,7 +69,39 @@ searchButton.on("click", function () {
 
         // Calls the city and writes its 5-Day forecast data to divs
         $.ajax({
-            url:
+            url:"http://api.openweathermap.org/data/2.5/forecast?q=" + cityCall + "&appid=" + apikey + "&units=imperial",
+            method: "GET"
+        }).then(function(response) {
+            for (i=3, d=1; i<=35; i = i + 8, d++) {
+                var foreDay = day + d;
+                var newForecast = $("<div>");
+                newForecast.addClass("bg-primary mx-4 text-light px-3 py-1");
+                newForecast.attr("style", "border-radius: 10px");
+
+                // Adds the new date
+                var forecastDate = $("<h4>");
+                forecastDate.text(month + "/" + foreDay + "/" + year)
+                newForecast.append(forecastDate);
+
+                // Adds a weather Icon
+                var forecastIcon = $("<img>");
+                forecastIcon.attr("src", "http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
+                newForecast.append(forecastIcon);
+
+
+                // Adds the temperature
+                var tempForecast = $("<p>");
+                tempForecast.text("Temp: " + response.list[i].main.temp + " F");
+                newForecast.append(tempForecast);
+
+                // Adds the humidity
+                var humidForecast = $("<p>");
+                humidForecast.text("Humidity: " + response.list[i].main.humidity + "%")
+                newForecast.append(humidForecast);
+
+                // Adds the new forecast div
+                fiveDay.append(newForecast);
+            }
         })
     }
 });
