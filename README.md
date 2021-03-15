@@ -1,3 +1,5 @@
+Deployed Here: https://cddeal12.github.io/Homework-06-Weather-App/
+
 # Homework-06-Weather-App
 This project is a weather and forecast display app that functions on a user's city search. The app is powered by the Openweather api and uses it to call current weather, uv index, and a five-day forecast for the city the user specifies in their search. Additionally, the app saves the cities the user has checked in a list, and clicking on it will automatically search for the city's data again without the need for the user to search manually. The list will not update with the same city twice.
 
